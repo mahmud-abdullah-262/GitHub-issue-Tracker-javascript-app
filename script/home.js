@@ -1,4 +1,5 @@
-let issuesContainer = document.querySelector('#issue-container')
+let issuesContainer = document.querySelector('#issue-container');
+let currentStatus = 'all';
 
 const loadAllIssue = ()  => {
   const allIssueUrl = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
@@ -25,8 +26,25 @@ fetch(allIssueUrl)
 
 
 const displayIssues = (array) => {
+
+let filteredIssues = [];
+console.log(currentStatus)
+
+if(currentStatus === 'all'){
+  filteredIssues = array;
+} else if(currentStatus === 'open'){
+  filteredIssues = array.filter(item => item.status === 'open');
+} else if(currentStatus !== 'open'){
+  filteredIssues = array.filter(item => item.status !== 'open');
+}
+
+
+
+
+
+
   issuesContainer.innerHTML = '';
- array.forEach(element => {
+ filteredIssues.forEach(element => {
   issuesContainer.innerHTML += `
   <div class="border-t-4 ${element.status === 'open'? 'border-t-green-600':'border-t-[#A855F7]'} rounded-xl p-4 flex flex-col gap-2 shadow-xl">
       <div class="flex justify-between items-center">
@@ -57,6 +75,29 @@ const displayIssues = (array) => {
 
  });
 } 
+
+const removeActive = () => {
+  const fliterBtnNode = document.querySelectorAll('#filter .btn');
+  fliterBtnNode.forEach(btn => btn.classList.remove('btn-primary'))
+}
+const filter = (id) => {
+  removeActive()
+ const filterBtn = document.getElementById(id);
+ filterBtn.classList.add('btn-primary');
+
+  if(id === 'filter-all'){
+      currentStatus = 'all';
+      
+  } else if(id === 'filter-open'){
+    currentStatus = 'open';
+    
+  } else if(id === 'filter-closed'){
+    currentStatus = 'closed';
+   
+  }
+
+  
+}
 
 
 

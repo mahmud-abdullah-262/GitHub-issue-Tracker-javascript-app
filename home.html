@@ -45,10 +45,10 @@
 </div>
 
 <!-- filter bar -->
- <div class="bg-base-100 shadow-sm my-5 w-11/12 mx-auto p-4 rounded-sm">
-  <button class="btn">All</button>
-  <button class="btn">Open</button>
-  <button class="btn">Closed</button>
+ <div id="filter" class="bg-base-100 shadow-sm my-5 w-11/12 mx-auto p-4 rounded-sm">
+  <button onclick="filter('filter-all')" id="filter-all" class="btn btn-primary">All</button>
+  <button onclick="filter('filter-open')" id="filter-open" class="btn">Open</button>
+  <button onclick="filter('filter-closed')" id="filter-closed" class="btn">Closed</button>
  </div>
 
  <!-- issue title -->
