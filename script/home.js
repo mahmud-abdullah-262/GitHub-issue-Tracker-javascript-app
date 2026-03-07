@@ -10,6 +10,7 @@ const searchInputEl = document.getElementById('search-input')
 
 // load all issue function
 const loadAllIssue = ()  => {
+  spinner(true)
   const allIssueUrl = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
 fetch(allIssueUrl)
 .then(response => response.json())
@@ -74,7 +75,7 @@ if(currentStatus === 'all'){
       <p class="text-gray-600">${element.createdAt}</p>
      </div>
   `
-
+        spinner(false)
  });
 } 
 
@@ -160,6 +161,7 @@ const displayDetails = (object) =>{
 
 // search function
 const loadSearch = () => {
+  spinner(true)
   const searchInput = searchInputEl.value;
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchInput}`;
   fetch(url)
@@ -167,6 +169,16 @@ const loadSearch = () => {
   .then(data => displayIssues(data.data))
 }
 
+// spinner function
+const spinner = (status) => {
+  if(status === true){
+    document.getElementById('spinner').classList.remove('hidden')
+    document.getElementById('issue-container').classList.add('hidden')
+  } else if(status === false){
+     document.getElementById('spinner').classList.add('hidden')
+    document.getElementById('issue-container').classList.remove('hidden')
+  }
 
+}
 loadAllIssue()
 
