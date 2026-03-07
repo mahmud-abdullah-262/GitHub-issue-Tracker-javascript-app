@@ -1,10 +1,14 @@
+// variables
 let issuesContainer = document.querySelector('#issue-container');
 let currentStatus = 'all';
 let allIssues = [];
 let filteredIssues = [];
 let issueCount  = document.getElementById('issue-count');
-const modalBox = document.getElementById('modal-box')
+const modalBox = document.getElementById('modal-box');
+const searchInputEl = document.getElementById('search-input')
 
+
+// load all issue function
 const loadAllIssue = ()  => {
   const allIssueUrl = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
 fetch(allIssueUrl)
@@ -15,23 +19,8 @@ fetch(allIssueUrl)
 } )
 }
 
-// {
-//     "id": 46,
-//     "title": "Implement data backup system",
-//     "description": "Set up automated daily backups of database with retention policy and restore procedures.",
-//     "status": "open",
-//     "labels": [
-//         "enhancement"
-//     ],
-//     "priority": "high",
-//     "author": "backup_bruce",
-//     "assignee": "db_admin",
-//     "createdAt": "2024-02-08T09:15:00Z",
-//     "updatedAt": "2024-02-08T09:15:00Z"
-// }
 
-
-
+// display all issue function
 const displayIssues = (array) => {
 
 
@@ -89,6 +78,8 @@ if(currentStatus === 'all'){
  });
 } 
 
+
+// filter function
 const removeActive = () => {
   const fliterBtnNode = document.querySelectorAll('#filter .btn');
   fliterBtnNode.forEach(btn => btn.classList.remove('btn-primary'))
@@ -114,6 +105,8 @@ const filter = (id) => {
   
 }
 
+
+// load issue details function
 const loadDetails = (id) =>{
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
   fetch(url)
@@ -124,32 +117,7 @@ const loadDetails = (id) =>{
   } )
 }
 
-
-
-
-// {
-//     "id": 1,
-//     "title": "Fix navigation menu on mobile devices",
-//     "description": "The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.",
-//     "status": "open",
-//     "labels": [
-//         "bug",
-//         "help wanted"
-//     ],
-//     "priority": "high",
-//     "author": "john_doe",
-//     "assignee": "jane_smith",
-//     "createdAt": "2024-01-15T10:30:00Z",
-//     "updatedAt": "2024-01-15T10:30:00Z"
-// }
-
-
-
-
-
-
-
-
+// display modal function
 const displayDetails = (object) =>{
  
   modalBox.innerHTML =`
@@ -187,6 +155,18 @@ const displayDetails = (object) =>{
     </div>
   `
 }
-// 
+
+
+
+// search function
+const loadSearch = () => {
+  const searchInput = searchInputEl.value;
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchInput}`;
+  fetch(url)
+  .then(response => response.json())
+  .then(data => displayIssues(data.data))
+}
+
+
 loadAllIssue()
 
