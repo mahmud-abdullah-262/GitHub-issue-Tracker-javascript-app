@@ -166,7 +166,10 @@ const loadSearch = () => {
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchInput}`;
   fetch(url)
   .then(response => response.json())
-  .then(data => displayIssues(data.data))
+  .then(data => {
+    displayIssues(data.data);
+    removeActive()
+  } )
 }
 
 // spinner function
