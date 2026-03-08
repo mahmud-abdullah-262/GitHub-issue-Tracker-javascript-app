@@ -49,8 +49,8 @@ if(currentStatus === 'all'){
   issuesContainer.innerHTML = '';
  filteredIssues.forEach(element => {
   issuesContainer.innerHTML += `
-  <div class="border-t-4 ${element.status === 'open'? 'border-t-green-600':'border-t-[#A855F7]'} rounded-xl p-4 flex flex-col gap-2 shadow-xl">
-      <div class="flex justify-between items-center">
+  <div onclick="loadDetails(${element.id})"  class="border-t-4 ${element.status === 'open'? 'border-t-green-600':'border-t-[#A855F7]'} rounded-xl p-4 flex flex-col gap-2 shadow-xl">
+      <div class="flex justify-between items-center cursor-pointer">
         <img ${element.status === 'open'? 'src="./assets/Open-Status.png"': 'src="./assets/Closed- Status .png"'} alt="">
         <p class="${element.priority === 'high'? 'bg-red-100 text-red-600':
            element.priority === 'medium' ? 'bg-yellow-100 text-yellow-600' :
@@ -58,7 +58,7 @@ if(currentStatus === 'all'){
         } rounded-full px-8 py-1">${element.priority}</p>
       </div>
 
-      <h1 onclick="loadDetails(${element.id})" class="text-2xl font-semibold cursor-pointer">${element.title}</h1>
+      <h1 class="text-2xl font-semibold ">${element.title}</h1>
       <p class="text-gray-600">${element.description}</p>
 
       <!-- badge -->
